@@ -1,2 +1,5 @@
 # my_config
-Arch linux config
+distro: arch linux 
+wm: sway
+terminal: foot
+font: freesans
