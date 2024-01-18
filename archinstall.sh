@@ -43,13 +43,17 @@ mount --mkdir /dev/nvme0n1p1 /mnt/boot
 swapon /dev/nvme0n1p2
 
 # install packages
-pacstrap -K /mnt base linux linux-firmware neovim man-db man-pages iwctl dhcpcd grub efibootmgr
+pacstrap -K /mnt base linux linux-firmware
 
 # configure sys
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
 arch-chroot /mnt
+
+pacman -S iwctl dhcpcd efibootmgr grub neovim man-db man-pages
+systemctl enable iwd
+systemctl enacle dhcpcd
 
 # timezone
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
