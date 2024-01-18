@@ -11,4 +11,4 @@ useradd -m -g zero wheel,seat
 
 passwd zero
 
-
+systemctl enable seatd
