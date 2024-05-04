@@ -12,16 +12,16 @@ set $right l
 # terminal emulator
 set $term foot
 #font
-font pango: "freesans 15"
+font pango: "freesans 13"
 # application launcher
-set $menu bemenu-run -m -1 -i --fn "freesans 15"
-
+set $menu wmenu-run
+#
 xwayland disable
 
 ### Output configuration
 #
 # wallpaper
-output * bg /home/zero/zero/walls/waves.png fill
+output * bg $HOME/$USER/walls/waves.png fill
 #
 ### Key bindings
 #
