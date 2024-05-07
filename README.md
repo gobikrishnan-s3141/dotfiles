@@ -2,6 +2,7 @@
 ## minimal wayland setup
 - wm: sway
 - terminal: foot
-- font: Freesans
+- term font: monospace
+- font: freesans
 
 ## Feel free to use the config files.
