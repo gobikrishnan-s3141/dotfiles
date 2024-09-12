@@ -7,23 +7,23 @@
 - [Installation guide](https://wiki.archlinux.org/title/Installation_guide)
 
 ## minimal wayland setup
-- wm: sway
-- terminal: foot
-- term font: monospace
-- font: freesans
+- wm: 'sway'
+- terminal: 'foot'
+- term font: 'monospace'
+- font: 'freesans'
 
 ## Initial setup
-1. Enable ''dhcpd'', as it is disabled by default
+1. Enable 'dhcpd', as it is disabled by default
 
         systemctl enable dhcpd
         systemctl start dhcpcd
    
-3. Update the system and install ''sudo'', ''git'' & ''neovim''
+3. Update the system and install 'sudo', 'git' & 'neovim'
 
         pacman -Syu
         pacman -S sudo git neovim
    
-5. Allow wheel group to use ''sudo''
+5. Allow wheel group to use 'sudo'
 
         visudo
         # Uncomment the following line, and save the file with :wq
@@ -36,7 +36,7 @@
         usermod -G wheel -a <user>
         passwd <user>
 
-8. Install ''paru'' - AUR helper
+8. Install 'paru' - AUR helper
 
         sudo pacman -S --needed base-devel
         git clone https://aur.archlinux.org/paru.git
@@ -44,12 +44,12 @@
         makepkg -si
    
 10. Install a web browser
-- ''Librewolf'' - a slighly modilfied version of firefox
+- 'Librewolf' - a slighly modilfied version of firefox
 
         paru -S librewolf-bin
   
-- ''Firefox'' (if you wanna use plain old firefox, do not use the stock version; use a custom ''user.js'' from [arkenfox](https://github.com/arkenfox/user.js/) or [Betterfox](https://github.com/yokoffing/BetterFox)
+- 'Firefox' (if you wanna use good old firefox, do not use the stock version; use a custom 'user.js' from [arkenfox](https://github.com/arkenfox/user.js/) or [Betterfox](https://github.com/yokoffing/BetterFox)
 
-- Looking for chromium-based browsers, install ''Brave''.
+- Looking for chromium-based browsers, install 'Brave'. 
   
 **Feel free to use the config files**
