@@ -14,21 +14,24 @@
 
 ## Initial setup
 1. Enable dhcpd, as it is disabled by default
-'''bash
+
         systemctl enable dhcpd
-        systemctl start dhcpcd     
+        systemctl start dhcpcd
+   
 3. Update the system and install sudo, git & neovim
-'''bash
+
         pacman -Syu
         pacman -S sudo git neovim
+   
 5. Allow wheel group to use sudo
-'''bash
+
         visudo
         # Uncomment the following line, and save the file with :wq
         # %wheel ALL=(ALL) ALL
+   
  (**warning!**: resist the urge to use su to execute any command unless you know the consequences)
 7. Create <user> and add it to wheel
-'''bash
+
         useradd -m <user>
         usermod -G wheel -a <user>
         passwd <user>
