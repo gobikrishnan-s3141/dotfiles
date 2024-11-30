@@ -1,5 +1,5 @@
 # Nixos
-
+*everything is a f(x)* 
 ![image](https://github.com/user-attachments/assets/aa7d280c-360e-4305-b0ab-1b95efad6536)
 
 - [I use nix BTW](https://nixos.org/)
@@ -15,15 +15,15 @@
 
 ## setup
 - use `configuration.nix` file from the repo and rebuild the system
-        sudo nixos-rebuild switch --upgrade
-  or (more verbose)
-        sudo nix-channel --update
+ -         sudo nixos-rebuild switch --upgrade
+or (more verbose)
+ -      sudo nix-channel --update
         sudo nixos-rebuild switch
 
 - nix-shell (temp installation/testing)
-        sudo nix-shell -p $nixpkg
+  -        sudo nix-shell -p $nixpkg
 
-- `Firefox` (if you wanna use good old firefox, do not use the stock version; I recommend using a custom 'user.js' from [arkenfox](https://github.com/arkenfox/user.js/) for enhanced security or [Betterfox](https://github.com/yokoffing/BetterFox) for a sweetspot between ease of use and better security
+- `Firefox` (if you wanna use good old firefox, do not use the stock version; I recommend using a custom 'user.js' from [arkenfox](https://github.com/arkenfox/user.js/) for enhanced security or [Betterfox](https://github.com/yokoffing/BetterFox) for a sweetspot between ease of use and better security.
 
 - Looking for chromium-based browsers, install `Brave` or `chromium`.
 
