@@ -1,55 +1,35 @@
-# Arch linux
+# Nixos
 
-![image](https://github.com/user-attachments/assets/9ad673aa-d2c5-4486-87b4-e8cfba79b382)
+![image](https://github.com/user-attachments/assets/aa7d280c-360e-4305-b0ab-1b95efad6536)
 
-- [I use arch BTW](https://archlinux.org/)
-- Download the latest iso from this [site](https://geo.mirror.pkgbuild.com/iso/2024.09.01/)
-- [Installation guide](https://wiki.archlinux.org/title/Installation_guide)
+- [I use nix BTW](https://nixos.org/)
+- Download the latest iso from this [site](https://nixos.org/download/)
+- [Installation guide]()
 
 ## minimal wayland setup
+- **minimal nixos base**
 - **wm:** `sway`
 - **terminal:** `foot`
 - **term font:** `monospace`
 - **font:** `freesans`
 
-## Initial setup
-1. Enable `dhcpd`, as it is disabled by default
+## setup
+- use `configuration.nix` file from the repo and rebuild the system
+        sudo nixos-rebuild switch --upgrade
+  or (more verbose)
+        sudo nix-channel --update
+        sudo nixos-rebuild switch
 
-        systemctl enable dhcpd
-        systemctl start dhcpcd
-   
-3. Update the system and install `sudo`, `git` & `neovim`
+- nix-shell (temp installation/testing)
+        sudo nix-shell -p $nixpkg
 
-        pacman -Syu
-        pacman -S sudo git neovim
-   
-5. Allow wheel group to use `sudo`
+- `Firefox` (if you wanna use good old firefox, do not use the stock version; I recommend using a custom 'user.js' from [arkenfox](https://github.com/arkenfox/user.js/) for enhanced security or [Betterfox](https://github.com/yokoffing/BetterFox) for a sweetspot between ease of use and better security
 
-        visudo
-        # Uncomment the following line, and save the file with :wq
-        # %wheel ALL=(ALL) ALL
-   
- (**warning!**: resist the urge to use su to execute any command unless you know the consequences)
-7. Create <user> and add it to wheel
+- Looking for chromium-based browsers, install `Brave` or `chromium`.
 
-        useradd -m <user>
-        usermod -G wheel -a <user>
-        passwd <user>
+- Enjoy some cool memes(no offence to any distros)
+![image](https://github.com/user-attachments/assets/54045c49-0f05-4a92-94cb-e542cb9c5126)
+![image](https://github.com/user-attachments/assets/3c04ece1-ee0b-4439-832f-c080eff5bf2d)
+![image](https://github.com/user-attachments/assets/7b8b54ff-7917-4093-ab54-6c66b92201fa)
 
-8. Install `paru` - AUR helper
-
-        sudo pacman -S --needed base-devel
-        git clone https://aur.archlinux.org/paru.git
-        cd paru
-        makepkg -si
-   
-10. Install a web browser
-- `Librewolf` - a slighly modilfied version of firefox
-
-        paru -S librewolf-bin
-  
-- `Firefox` (if you wanna use good old firefox, do not use the stock version; use a custom 'user.js' from [arkenfox](https://github.com/arkenfox/user.js/) or [Betterfox](https://github.com/yokoffing/BetterFox)
-
-- Looking for chromium-based browsers, install `Brave` or `chromium`. 
-  
 **Feel free to use the config files**
