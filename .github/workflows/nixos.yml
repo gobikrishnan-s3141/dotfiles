@@ -1,4 +1,4 @@
-name: NixOS
+name: NixOS Rebuild
 
 on:
   push:
@@ -19,8 +19,9 @@ jobs:
     - name: Install Nix
       run: |
         curl -L https://nixos.org/nix/install | sh
-        source ~/.nix-profile/etc/profile.d/nix.sh
+        . /home/runner/.nix-profile/etc/profile.d/nix.sh
 
     - name: NixOS Rebuild Switch
       run: |
+        . /home/runner/.nix-profile/etc/profile.d/nix.sh
         nixos-rebuild switch
