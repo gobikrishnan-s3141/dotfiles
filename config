@@ -12,16 +12,16 @@ set $right l
 # terminal emulator
 set $term foot
 #font
-font pango: "freesans 13"
+font pango: "monospace 13"
 # application launcher
-set $menu wmenu-run
+set $menu wmenu-run -f "monospace 13"
 #
-xwayland disable
+# xwayland disable
 
 ### Output configuration
 #
 # wallpaper
-output * bg $HOME/$USER/walls/waves.png fill
+output * bg $HOME/$USER/walls/robot.png fill
 #
 ### Key bindings
 #
