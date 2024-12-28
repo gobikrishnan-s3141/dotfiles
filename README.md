@@ -2,7 +2,7 @@
 *everything is a f(x)* 
 ![image](https://github.com/user-attachments/assets/aa7d280c-360e-4305-b0ab-1b95efad6536)
 
-- [I use nix BTW](https://nixos.org/)
+- [I use nix BTW!](https://nixos.org/)
 - Download the latest iso from this [site](https://nixos.org/download/)
 - [Installation guide](https://nixos.wiki/wiki/NixOS_Installation_Guide)
 - [Manual](https://nixos.org/manual/nixos/stable/)
@@ -19,12 +19,6 @@
 - use `configuration.nix` file from the repo and rebuild the system
 ```
 sudo nixos-rebuild switch --upgrade
-
-# apply update after a reboot
-sudo nixos-rebuild boot
-
-# test update (not added to bootlog, until it is applied)
-sudo nixos-rebuild test
 ```
 or (more verbose)
 ```
@@ -32,7 +26,17 @@ or (more verbose)
  sudo nixos-rebuild switch
 ```
 
-- nix-shell (temp installation/testing)
+- To apply updates after a reboot
+```
+sudo nixos-rebuild boot
+```
+
+- To test update (not added to bootlog, until it is applied)
+```
+sudo nixos-rebuild test
+```
+
+- Use 'nix-shell' for temp installation/testing
 ```
 sudo nix-shell -p $nixpkg
 ```
@@ -41,4 +45,4 @@ sudo nix-shell -p $nixpkg
 
 - Looking for chromium-based browsers, install `Brave` or `chromium`.
 
-**Feel free to use the config files**
+*Feel free to use the config files!!*
