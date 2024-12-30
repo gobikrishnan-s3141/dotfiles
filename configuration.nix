@@ -15,6 +15,9 @@
   # kernel params
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # firmware
+  hardware.enableAllFirmware = true;
+
   # hostname
   networking.hostName = "nixbox";
 
@@ -71,7 +74,7 @@
 
   # unfree packages
   nixpkgs.config.allowUnfree = true;
-
+  
   # pkgs
   environment.systemPackages = with pkgs; [
      neovim
