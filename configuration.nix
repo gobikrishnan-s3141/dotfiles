@@ -12,10 +12,30 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # kernel params
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # hostname
   networking.hostName = "nixbox";
 
   # networking
   networking.networkmanager.enable = true;
+  
+  # udisks2
+  services.udisks2.enable = true;
+  
+  # nix
+  nix.optimise.automatic = true;
+
+  # flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  #gc
+  nix.gc = {
+   automatic = true;
+   dates = "weekly";
+   options = "--delete-older-than 7d";
+  };
 
   # time zone
   time.timeZone = "Europe/London";
@@ -45,7 +65,7 @@
   users.users.zero = {
     isNormalUser = true;
     description = "zero";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "seat" ];
     packages = with pkgs; [];
   };
 
@@ -60,18 +80,48 @@
      git
      wl-clipboard
      grim
-     pkgs.librewolf
-     pkgs.mpv
+     librewolf
+     mpv
      fastfetch
      htop
+     iftop
+     udiskie
+     alsa-utils
+     acpi
+     efibootmgr
   ];
 
  # sway
- programs.sway.enable = true;
- 
- # tlp
- services.tlp.enable = true;
+ programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
+ # seatd
+ services.seatd.enable = true;
+ 
+ # pipewire
+ security.rtkit.enable = true;
+ services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+ # auto-cpufreq
+ services.auto-cpufreq.enable = true;
+ services.auto-cpufreq.settings = {
+   battery = {
+      governor = "powersave";
+      turbo = "never";
+   };
+   charger = {
+      governor = "performance";
+      turbo = "auto";
+   };
+ };
+ 
  # ssh 
  services.openssh.enable = true;
 
