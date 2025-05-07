@@ -27,11 +27,11 @@
   # udisks2
   services.udisks2.enable = true;
   
-  # nix
-  nix.optimise.automatic = true;
-
   # flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  #nix-optimise
+  nix.optimise.automatic = true;
 
   #gc
   nix.gc = {
@@ -77,21 +77,24 @@
   
   # pkgs
   environment.systemPackages = with pkgs; [
+     efibootmgr
+     udiskie
      neovim
+     python3Minimal
      wget
      curl
      git
+     tmux
+     podman-compose
      wl-clipboard
      grim
+     acpi
+     alsa-utils
      librewolf
      mpv
      fastfetch
      htop
      iftop
-     udiskie
-     alsa-utils
-     acpi
-     efibootmgr
   ];
 
  # sway
@@ -111,7 +114,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
+ 
  # auto-cpufreq
  services.auto-cpufreq.enable = true;
  services.auto-cpufreq.settings = {
