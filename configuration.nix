@@ -30,6 +30,10 @@
   # flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # auto-update
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = false;
+
   #nix-optimise
   nix.optimise.automatic = true;
 
@@ -134,6 +138,6 @@
  # podman
  virtualisation.podman.enable = true;
 
- system.stateVersion = "24.11";
+ system.stateVersion = "25.05";
 
 }
