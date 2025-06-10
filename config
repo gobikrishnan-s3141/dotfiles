@@ -12,16 +12,16 @@ set $right l
 # terminal emulator
 set $term foot
 #font
-font pango: "monospace 13"
+font pango: "monospace 14"
 # application launcher
-set $menu wmenu-run -f "monospace 13"
+set $menu wmenu-run -f "monospace 14"
 #
 # xwayland disable
 
 ### Output configuration
 #
 # wallpaper
-output * bg $HOME/$USER/walls/robot.png fill
+output * bg $HOME/Downloads/nixos.png fill
 #
 ### Key bindings
 #
@@ -161,7 +161,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
+
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
@@ -181,11 +181,19 @@ bar {
 
 include /etc/sway/config.d/*
 
+# touchpad
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled
+}
+
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
     gsettings set $gnome-schema icon-theme 'Adwaita-dark'
     gsettings set $gnome-schema cursor-theme 'Adwaita-dark'
-    gsettings set $gnome-schema font-name 'freesans 13'
+    gsettings set $gnome-schema font-name 'Noto Sans 15'
 }
+

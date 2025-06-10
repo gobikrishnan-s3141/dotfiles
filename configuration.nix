@@ -1,14 +1,14 @@
 # configuration.nix
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
     ];
 
-  # bootloader
+  # systemd-boot EFI boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -17,14 +17,26 @@
 
   # firmware
   hardware.enableAllFirmware = true;
+  nixpkgs.config.allowUnfree = true;
 
-  # hostname
+  # hostname 
   networking.hostName = "nixbox";
 
-  # networking
+  # NetworkManager
   networking.networkmanager.enable = true;
-  
-  # udisks2
+
+  # time zone
+  time.timeZone = "UTC";
+
+  # system locale
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+     font = "Lat2-Terminus16";
+     keyMap = lib.mkDefault "us";
+     useXkbConfig = true;
+   };
+ 
+  #udisks2
   services.udisks2.enable = true;
   
   # flakes
@@ -41,103 +53,93 @@
   nix.gc = {
    automatic = true;
    dates = "weekly";
-   options = "--delete-older-than 7d";
+   options = "--delete-older-than 15d";
   };
 
-  # time zone
-  time.timeZone = "Europe/London";
+  # sound
+  security.rtkit.enable = true;
+  services.pipewire = {
+     enable = true;
+     alsa.enable = true;
+     alsa.support32Bit = true;
+     pulse.enable = true;
+     wireplumber.enable = true;
+   };
 
-  # international properties
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
-  # keymap 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # touchpad support
+  services.libinput.enable = true;
 
   # user
   users.users.zero = {
-    isNormalUser = true;
-    description = "zero";
-    extraGroups = [ "networkmanager" "wheel" "seat" ];
-    packages = with pkgs; [];
-  };
+     isNormalUser = true;
+     extraGroups = [ "wheel" "networkmanager"];
+     packages = with pkgs; [
+     ];
+   };
 
-  # unfree packages
-  nixpkgs.config.allowUnfree = true;
-  
-  # pkgs
+  # install packages
   environment.systemPackages = with pkgs; [
      efibootmgr
      udiskie
      neovim
-     python3Minimal
      wget
      curl
+     python3Minimal
      git
      tmux
      podman-compose
      wl-clipboard
      grim
+     mako
      acpi
-     alsa-utils
      librewolf
      mpv
      fastfetch
      htop
      iftop
-  ];
+   ];
 
- # sway
- programs.sway = {
+  # started in user sessions
+   programs.mtr.enable = true;
+   programs.gnupg.agent = {
+     enable = true;
+     enableSSHSupport = true;
+   };
+  
+  # sway
+  programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
   };
 
- # seatd
- services.seatd.enable = true;
- 
- # pipewire
- security.rtkit.enable = true;
- services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+  # xwayland
+  programs.xwayland.enable = true;
+
+  # seatd
+  services.seatd.enable = true;
+
+  # auto-cpufreq
+  services.auto-cpufreq.enable = true;
+  services.auto-cpufreq.settings = {
+    battery = {
+       governor = "powersave";
+       turbo = "never";
+    };
+    charger = {
+       governor = "performance";
+       turbo = "auto";
+    };
   };
- 
- # auto-cpufreq
- services.auto-cpufreq.enable = true;
- services.auto-cpufreq.settings = {
-   battery = {
-      governor = "powersave";
-      turbo = "never";
-   };
-   charger = {
-      governor = "performance";
-      turbo = "auto";
-   };
- };
- 
- # ssh 
- services.openssh.enable = true;
 
- # podman
- virtualisation.podman.enable = true;
+  # OpenSSH daemon
+  services.openssh.enable = true;
 
- system.stateVersion = "25.05";
+  # podman
+  virtualisation.podman.enable = true;
+
+  # backup configuration.nix
+  system.copySystemConfiguration = true;
+
+  system.stateVersion = "25.05";
 
 }
