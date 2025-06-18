@@ -12,16 +12,16 @@ set $right l
 # terminal emulator
 set $term foot
 #font
-font pango: "monospace 14"
+font pango: "monospace 13"
 # application launcher
-set $menu wmenu-run -f "monospace 14"
+set $menu wmenu-run -f "monospace 13"
 #
 # xwayland disable
 
 ### Output configuration
 #
 # wallpaper
-output * bg $HOME/Downloads/nixos.png fill
+output * bg $HOME/Downloads/ign_nordic_triangle.png fill
 #
 ### Key bindings
 #
@@ -194,6 +194,6 @@ exec_always {
     gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
     gsettings set $gnome-schema icon-theme 'Adwaita-dark'
     gsettings set $gnome-schema cursor-theme 'Adwaita-dark'
-    gsettings set $gnome-schema font-name 'Noto Sans 15'
+    gsettings set $gnome-schema font-name 'Noto Sans 17'
 }
 
