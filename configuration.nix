@@ -36,7 +36,7 @@
      useXkbConfig = true;
    };
  
-  #udisks2
+  # udisks2
   services.udisks2.enable = true;
   
   # flakes
@@ -46,10 +46,10 @@
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
 
-  #nix-optimise
+  # nix-optimise
   nix.optimise.automatic = true;
 
-  #gc
+  # gc
   nix.gc = {
    automatic = true;
    dates = "weekly";
