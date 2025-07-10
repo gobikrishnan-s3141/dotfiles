@@ -13,10 +13,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # kernel params
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # firmware
-  hardware.enableAllFirmware = true;
+  hardware.firmware = with pkgs; [
+    linux-firmware
+    ];
   nixpkgs.config.allowUnfree = true;
 
   # hostname 
@@ -24,6 +26,9 @@
 
   # NetworkManager
   networking.networkmanager.enable = true;
+
+  #firewall
+  networking.firewall.enable = true;
 
   # time zone
   time.timeZone = "UTC";
@@ -36,34 +41,31 @@
      useXkbConfig = true;
    };
  
-  # udisks2
-  services.udisks2.enable = true;
-  
   # flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    cores = lib.mkDefault 4;
+    max-jobs = lib.mkDefault 4;
+    auto-optimise-store = true;
+    };
 
   # auto-update
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
 
-  # nix-optimise
-  nix.optimise.automatic = true;
-
   # gc
   nix.gc = {
-   automatic = true;
-   dates = "weekly";
-   options = "--delete-older-than 15d";
-  };
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 15d";
+    };
 
   # sound
   security.rtkit.enable = true;
   services.pipewire = {
      enable = true;
      alsa.enable = true;
-     alsa.support32Bit = true;
      pulse.enable = true;
-     wireplumber.enable = true;
    };
 
   # touchpad support
@@ -99,24 +101,18 @@
      iftop
    ];
 
-  # started in user sessions
-   programs.mtr.enable = true;
-   programs.gnupg.agent = {
+  # gnupg & mtr
+  programs.gnupg.agent = {
      enable = true;
      enableSSHSupport = true;
    };
-  
+  programs.mtr.enable = true;
+
   # sway
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-  };
-
-  # xwayland
-  programs.xwayland.enable = true;
-
-  # seatd
-  services.seatd.enable = true;
+    };
 
   # auto-cpufreq
   services.auto-cpufreq.enable = true;
