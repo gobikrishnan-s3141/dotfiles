@@ -60,6 +60,9 @@
     options = "--delete-older-than 15d";
     };
 
+  # udisks2
+  services.udisks2.enable = true;
+
   # sound
   security.rtkit.enable = true;
   services.pipewire = {
@@ -94,6 +97,7 @@
      grim
      mako
      acpi
+     alsa-utils
      librewolf
      mpv
      fastfetch
@@ -113,6 +117,7 @@
     enable = true;
     wrapperFeatures.gtk = true;
     };
+  security.pam.services.swaylock = {};
 
   # auto-cpufreq
   services.auto-cpufreq.enable = true;
