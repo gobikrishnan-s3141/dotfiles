@@ -1,28 +1,67 @@
-# sway config 
+# sway config
+#
 
 ### Variables
 #
-# logo key
+# Logo key
 set $mod Mod4
-# home row direction keys
+# vim like direction keys
 set $left h
 set $down j
 set $up k
 set $right l
-# terminal emulator
+# foot terminal emulator
 set $term foot
 #font
 font pango: "monospace 13"
-# application launcher
+# wmenu application launcher
 set $menu wmenu-run -f "monospace 13"
-#
+
 # xwayland disable
 
 ### Output configuration
 #
 # wallpaper
-output * bg $HOME/Downloads/ign_nordic_triangle.png fill
+output * bg $HOME/Downloads/waves.png fill
+
+# gtk theme
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+    gsettings set $gnome-schema icon-theme 'Adwaita-dark'
+    gsettings set $gnome-schema cursor-theme 'Adwaita-dark'
+    gsettings set $gnome-schema font-name 'Noto Sans 17'
+    }
+
 #
+# HDMI output
+#
+# output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# display outputs options: swaymsg -t get_outputs
+
+### Idle configuration
+#
+exec swayidle -w \
+          timeout 300 'swaylock -f -c 000000' \
+          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          before-sleep 'swaylock -f -c 000000' \
+	  --image $HOME/Downloads/waves.png
+#
+
+### Input configuration
+#
+# touchpad
+
+   input type:touchpad {
+       dwt enabled
+       tap enabled
+       natural_scroll enabled
+       middle_emulation enabled
+       }
+#
+
 ### Key bindings
 #
 # Basics:
@@ -36,11 +75,6 @@ output * bg $HOME/Downloads/ign_nordic_triangle.png fill
     # Start your launcher
     bindsym $mod+d exec $menu
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
     floating_modifier $mod normal
 
     # Reload the configuration file
@@ -97,14 +131,10 @@ output * bg $HOME/Downloads/ign_nordic_triangle.png fill
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
+    # split layout
     bindsym $mod+b splith
     bindsym $mod+v splitv
 
@@ -127,14 +157,7 @@ output * bg $HOME/Downloads/ign_nordic_triangle.png fill
 #
 # Scratchpad:
 #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 #
 # Resizing containers:
@@ -160,17 +183,33 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+#
+# Utilities:
+#
+    # Special keys to adjust volume via PulseAudio
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # Special keys to adjust brightness via brightnessctl
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    # Special key to take a screenshot with grim
+    bindsym Print exec grim
 
+#swaylock    
+exec swayidle -w \
+  timeout 900 'swaylock --daemonize --no-unlock-indicator --color 2e3340' \
+  timeout 1800 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+  before-sleep 'swaylock --daemonize --no-unlock-indicator --color 2e3340'
 
+#
 # Status Bar:
 #
-# Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
 
     colors {
         statusline #ffffff
@@ -180,20 +219,3 @@ bar {
 }
 
 include /etc/sway/config.d/*
-
-# touchpad
-input type:touchpad {
-    tap enabled
-    natural_scroll enabled
-    dwt enabled
-}
-
-set $gnome-schema org.gnome.desktop.interface
-
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
-    gsettings set $gnome-schema icon-theme 'Adwaita-dark'
-    gsettings set $gnome-schema cursor-theme 'Adwaita-dark'
-    gsettings set $gnome-schema font-name 'Noto Sans 17'
-}
-
