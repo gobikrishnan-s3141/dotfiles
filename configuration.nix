@@ -1,6 +1,6 @@
 # configuration.nix
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -150,9 +150,6 @@
 
   # podman
   virtualisation.podman.enable = true;
-
-  # backup configuration.nix
-  system.copySystemConfiguration = true;
 
   system.stateVersion = "25.05";
 
