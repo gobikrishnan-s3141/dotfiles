@@ -50,8 +50,16 @@
     };
 
   # auto-update
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = false;
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--recreate-lock-file"
+      "-L" # print build logs
+    ];
+  };
 
   # gc
   nix.gc = {
@@ -98,12 +106,17 @@
      mako
      acpi
      alsa-utils
+     pciutils
+     usbutils
      librewolf
      mpv
      fastfetch
      htop
      iftop
    ];
+
+  # default editor
+  environment.variables.EDITOR = "nvim";
 
   # gnupg & mtr
   programs.gnupg.agent = {
