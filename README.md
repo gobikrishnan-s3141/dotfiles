@@ -16,33 +16,25 @@
 - **font:** `freesans`
 
 ## setup
-- use `configuration.nix` file from the repo and rebuild the system
+- use `configuration.nix` and `flake.nix` files from the repo and rebuild the system to have a more reproducible build [implement `home-manager` for more reproducibility]
+*(automatic updates are enabled, so running these commands are not necesssary on a daily basis)*
+**flake**
 ```
-sudo nixos-rebuild switch --upgrade
+  nix flake update
+  nix flake update home-manager [if using home-manager]
 ```
-or (more verbose)
+- Apply the updates
 ```
- sudo nix-channel --update
- sudo nixos-rebuild switch
+sudo nixos-rebuild switch --flake .
 ```
-
-- To apply updates after a reboot
-```
-sudo nixos-rebuild boot
-```
-
-- To test update (not added to bootlog, until it is applied)
-```
-sudo nixos-rebuild test
-```
-
-- Use 'nix-shell' for temp installation/testing
-```
-sudo nix-shell -p $nixpkg
-```
-
-- `Firefox` (if you wanna use good old firefox, do not use the stock version; I recommend using a custom 'user.js' from [arkenfox](https://github.com/arkenfox/user.js/) for enhanced security or [Betterfox](https://github.com/yokoffing/BetterFox) for a sweetspot between ease of use and better security.
-
-- Looking for chromium-based browsers, install `Brave` or `chromium`.
+### Recommended softwares
+- `Firefox` --> `Librewolf` (if you wanna use good old firefox, do not use the stock version; I recommend using a custom 'user.js' from [arkenfox](https://github.com/arkenfox/user.js/) for enhanced security or [Betterfox](https://github.com/yokoffing/BetterFox) for a sweetspot between ease of use and better security
+- `neovim` - default editor
+- `mpv` - media player
+- `tmux` - terminal multiplexer
 
 *Feel free to use the config files!!*
+
+## References
+1. https://nixos-and-flakes.thiscute.world/
+2. https://nix.dev/
