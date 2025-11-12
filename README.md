@@ -17,7 +17,9 @@
 
 ## setup
 - use `configuration.nix` and `flake.nix` files from the repo and rebuild the system to have a more reproducible build [implement `home-manager` for more reproducibility]
+
 *(automatic updates are enabled, so running these commands are not necesssary on a daily basis)*
+
 **flake**
 ```
   nix flake update
