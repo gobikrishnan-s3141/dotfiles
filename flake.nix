@@ -1,8 +1,8 @@
 # flake.nix
 {
-  description = "A simple NixOS flake";
+  description = "nixbox flake";
 
-  inputs.nixpkgsGitHubBranch.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs.nixpkgsGitHubBranch.url = "github:NixOS/nixpkgs/nixos-25.11";
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.nixbox = nixpkgs.lib.nixosSystem { 
