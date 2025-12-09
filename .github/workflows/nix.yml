@@ -1,0 +1,27 @@
+name: NixOS CI build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Nix
+      run: |
+        curl -L https://nixos.org/nix/install | sh
+        . /home/runner/.nix-profile/etc/profile.d/nix.sh
+
+    - name: NixOS Rebuild test
+      run: |
+        . /home/runner/.nix-profile/etc/profile.d/nix.sh
+        nix flake update
