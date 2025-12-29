@@ -82,6 +82,17 @@
   # touchpad support
   services.libinput.enable = true;
 
+  # bash
+  programs.bash = {
+    shellAliases = {
+      rm = "rm -i";
+      cp = "cp -i";
+      mv = "mv -i";
+      mkdir = "mkdir -p";
+      vim = "nvim";
+     };
+  };
+
   # user
   users.users.zero = {
      isNormalUser = true;
