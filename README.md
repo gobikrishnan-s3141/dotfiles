@@ -23,7 +23,7 @@
 **flake**
 ```
   nix flake update
-  nix flake update home-manager [if using home-manager]
+  nix flake update home-manager #[if using home-manager]
 ```
 - Apply the updates
 ```
