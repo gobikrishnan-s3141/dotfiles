@@ -13,7 +13,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # kernel params
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # firmware
   hardware.firmware = with pkgs; [
