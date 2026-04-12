@@ -22,7 +22,7 @@ set $menu wmenu-run -f "monospace 13"
 ### Output configuration
 #
 # wallpaper
-output * bg $HOME/Downloads/waves.png fill
+output * bg $HOME/.config/wallpapers/waves.png fill
 
 # gtk theme
 set $gnome-schema org.gnome.desktop.interface
